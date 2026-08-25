@@ -1,0 +1,254 @@
+name: Android CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  JAVA_VERSION: '17'
+  GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx4g -XX:+HeapDumpOnOutOfMemoryError" -Dorg.gradle.parallel=true -Dorg.gradle.configureondemand=true'
+
+jobs:
+  lint:
+    name: Lint & Static Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'gradle'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 36
+          ndk-version: r27c
+          build-tools-version: '36.0.0'
+          cmdline-tools-version: 'latest'
+
+      - name: Grant Gradle permission
+        run: chmod +x ./gradlew
+
+      - name: Run Lint
+        run: ./gradlew lintDebug --no-daemon
+
+      - name: Upload Lint Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: app/build/reports/lint-results-debug.html
+          retention-days: 7
+
+  test:
+    name: Unit & Instrumented Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'gradle'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 36
+          ndk-version: r27c
+          build-tools-version: '36.0.0'
+          cmdline-tools-version: 'latest'
+
+      - name: Grant Gradle permission
+        run: chmod +x ./gradlew
+
+      - name: Run Unit Tests
+        run: ./gradlew testDebugUnitTest --no-daemon
+
+      - name: Start Emulator (for Instrumented Tests)
+        uses: android-actions/emulator-runner@v2
+        with:
+          api-level: 36
+          force-avd-creation: false
+          emulator-options: -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect
+
+      - name: Run Instrumented Tests
+        run: ./gradlew connectedDebugAndroidTest --no-daemon
+
+      - name: Upload Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            app/build/reports/tests/
+            app/build/outputs/androidTest-results/
+          retention-days: 7
+
+  build-debug:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [lint, test]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'gradle'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 36
+          ndk-version: r27c
+          build-tools-version: '36.0.0'
+          cmdline-tools-version: 'latest'
+
+      - name: Grant Gradle permission
+        run: chmod +x ./gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
+
+  build-release:
+    name: Build Release AAB/APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [lint, test]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'gradle'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 36
+          ndk-version: r27c
+          build-tools-version: '36.0.0'
+          cmdline-tools-version: 'latest'
+
+      - name: Grant Gradle permission
+        run: chmod +x ./gradlew
+
+      - name: Decode Keystore
+        if: env.KEYSTORE_BASE64 != ''
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > my-upload-key.jks
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+
+      - name: Build Release AAB
+        run: ./gradlew bundleRelease --no-daemon
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEYSTORE_PATH: ${{ secrets.KEYSTORE_PATH }}
+
+      - name: Build Release APK (for direct install)
+        run: ./gradlew assembleRelease --no-daemon
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEYSTORE_PATH: ${{ secrets.KEYSTORE_PATH }}
+
+      - name: Upload Release AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-aab
+          path: app/build/outputs/bundle/release/app-release.aab
+          retention-days: 90
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-apk
+          path: app/build/outputs/apk/release/app-release.apk
+          retention-days: 90
+
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [build-release]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    permissions:
+      contents: write
+    steps:
+      - name: Download Release Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: app-release-*
+          merge-multiple: true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.run_number }}
+          name: "Release v${{ github.run_number }}"
+          body: |
+            ## Auto-generated Release
+            
+            **Commit:** ${{ github.sha }}
+            **Branch:** ${{ github.ref_name }}
+            **Build:** #${{ github.run_number }}
+            
+            ### Artifacts
+            - `app-release.aab` - For Play Store upload
+            - `app-release.apk` - For direct installation
+            
+            ### Installation
+            ```bash
+            # APK
+            adb install app-release.apk
+            
+            # Or via Play Console with AAB
+            ```
+          draft: false
+          prerelease: false
+          files: |
+            artifacts/app-release.aab
+            artifacts/app-release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

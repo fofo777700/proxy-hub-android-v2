@@ -1,0 +1,117 @@
+name: 🐛 Bug Report
+description: گزارش یک باگ یا مشکل در اپلیکیشن
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        با تشکر از گزارش باگ! لطفاً اطلاعات زیر را کامل کنید تا بتوانیم سریع‌تر راه‌حل پیدا کنیم.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: توضیح باگ
+      description: توضیح مختصر و واضح از مشکل
+      placeholder: وقتی روی دکمه تست سرعت می‌زنم، اپ کرش می‌کند...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: مراحل بازتولید
+      description: قدم‌به‌قدم مراحل برای بازتولید باگ
+      placeholder: |
+        1. اپ را باز کنید
+        2. به تب پروکسی‌ها بروید
+        3. روی یک پروکسی کلیک کنید
+        4. دکمه تست را بزنید
+        5. خطا رخ می‌دهد
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: رفتار انتظار شده
+      description: چه اتفاقی باید می‌افتاد؟
+      placeholder: باید تست سرعت شروع شود و نتیجه را نشان دهد
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: رفتار واقعی
+      description: چه اتفاقی می‌افتد؟ (پیام خطا، کرش، هیچ اتفاقی)
+      placeholder: اپ با خطای NullPointerException کرش می‌کند
+    validations:
+      required: true
+
+  - type: dropdown
+    id: screen
+    attributes:
+      label: صفحه/بخش مربوطه
+      options:
+        - صفحه اصلی (MainScreen)
+        - کانفیگ‌ها (ConfigsScreen)
+        - پروکسی‌ها (ProxiesScreen)
+        - کانال‌ها (ChannelsScreen)
+        - ابزارها (ToolsScreen)
+        - تنظیمات
+        - سایر
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: دستگاه/امولاتور
+      description: مدل گوشی یا امولاتور، نسخه اندروید
+      placeholder: Pixel 7 Pro, Android 14 / Emulator API 36
+    validations:
+      required: true
+
+  - type: input
+    id: appVersion
+    attributes:
+      label: نسخه اپلیکیشن
+      description: نسخه کد (versionCode) یا نام (versionName)
+      placeholder: 1.0 (versionCode 1)
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: لاگ‌ها (Logcat)
+      description: لاگ‌های مربوطه را اینجا پیست کنید (اختیاری)
+      render: text
+      placeholder: |
+        E/AndroidRuntime: FATAL EXCEPTION: main
+        java.lang.NullPointerException: ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: config
+    attributes:
+      label: کانفیگ تستی (اختیاری)
+      description: اگر باگ مربوط به پارسیگ/تست کانفیگ است، یک نمونه کانفیگ اینجا بگذارید
+      render: text
+      placeholder: vless://uuid@host:port?...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: چک‌لیست
+      options:
+        - label: من در Issues موجود جستجو کرده‌ام و این باگ تکراری نیست
+          required: true
+        - label: من از آخرین نسخه master استفاده می‌کنم
+          required: true
+        - label: من مراحل بازتولید را دقیق ذکر کرده‌ام
+          required: true

@@ -1,0 +1,87 @@
+name: ✨ Feature Request
+description: پیشنهاد ویژگی جدید یا بهبود
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        با تشکر از پیشنهاد شما! لطفاً جزئیات ویژگی مورد نظر را توضیح دهید.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: مشکل یا نیاز
+      description: چه مشکلی وجود دارد که این ویژگی آن را حل می‌کند؟
+      placeholder: فعلاً نمی‌توان کانفیگ‌ها را به فرمت Clash صادر کرد...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: راه‌حل پیشنهادی
+      description: چگونه می‌خواهید این ویژگی کار کند؟
+      placeholder: اضافه کردن دکمه "Export to Clash" در منوی سه‌نقطه صفحه پروکسی‌ها که فایل YAML تولید کند
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: راه‌حل‌های جایگزین
+      description: آیا راه‌حل‌های دیگری در نظر گرفته‌اید؟
+      placeholder: می‌توان از کتابخانه‌ی clasp-yaml استفاده کرد...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: اولویت
+      options:
+        - 🔴 Critical (مسدودکننده)
+        - 🟠 High (مهم)
+        - 🟡 Medium (معمولی)
+        - 🟢 Low (خوب است داشته باشیم)
+        - 💡 Nice to have (ایده جالب)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: بخش مرتبط
+      options:
+        - پارسر کانفیگ (ConfigParser)
+        - تستر (PingTester, SpeedTester)
+        - فچر کانال‌ها (ChannelFetcher)
+        - UI/UX (Compose Screens)
+        - دیتابیس (Room)
+        - AI (Gemini)
+        - Export/Import
+        - تنظیمات
+        - سایر
+    validations:
+      required: true
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: موک‌آپ / وایرفریم (اختیاری)
+      description: اگر طراحی UI در ذهن دارید، توضیح دهید یا لینک Figma بدهید
+      placeholder: یک دکمه در Toolbar بالا راست با آیکون download...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: چک‌لیست
+      options:
+        - label: من در Issues موجود جستجو کرده‌ام و این درخواست تکراری نیست
+          required: true
+        - label: این ویژگی با معماری فعلی (MVVM, Room, Compose) سازگار است
+          required: false
+        - label: من می‌توانم در پیاده‌سازی کمک کنم (PR بفرستم)
+          required: false

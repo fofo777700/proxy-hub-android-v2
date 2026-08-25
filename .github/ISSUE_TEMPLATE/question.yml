@@ -1,0 +1,50 @@
+name: ❓ Question / Help
+description: پرسش درباره استفاده، نصب، یا توسعه
+title: "[Question]: "
+labels: ["question", "help-wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        سوال بپرسید! جامعه و نگهداری‌کنندگان سعی می‌کنند به سرعت پاسخ دهند.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: سوال شما
+      description: واضح و مختصر بپرسید
+      placeholder: چطور می‌توانم یک کانفیگ VLESS را به صورت دستی اضافه کنم؟
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: دسته‌بندی
+      options:
+        - نصب و راه‌اندازی
+        - استفاده از اپلیکیشن
+        - توسعه و مشارکت
+        - بیلد و CI/CD
+        - تنظیمات و کانفیگ
+        - سایر
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: محیط (اختیاری)
+      description: Android Studio، امولاتور، گوشی فیزیکی، CI
+      placeholder: Android Studio Ladybug, Emulator API 36
+    validations:
+      required: false
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: چه تلاش‌هایی کرده‌اید؟
+      description: اگر برای حل مشکل تلاش کرده‌اید، شرح دهید
+      placeholder: فایل .env را ساختم اما GEMINI_API_KEY کار نمی‌کند...
+    validations:
+      required: false

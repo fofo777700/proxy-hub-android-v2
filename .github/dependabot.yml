@@ -1,0 +1,54 @@
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "gradle"
+    commit-message:
+      prefix: "chore(deps): "
+    groups:
+      android-gradle-plugin:
+        patterns:
+          - "com.android.tools.build*"
+      kotlin:
+        patterns:
+          - "org.jetbrains.kotlin*"
+      androidx:
+        patterns:
+          - "androidx.*"
+      firebase:
+        patterns:
+          - "com.google.firebase*"
+      compose:
+        patterns:
+          - "androidx.compose*"
+      testing:
+        patterns:
+          - "junit*"
+          - "robolectric*"
+          - "roborazzi*"
+      build-tools:
+        patterns:
+          - "ksp*"
+          - "moshi*"
+          - "retrofit*"
+          - "okhttp*"
+          - "moshi*"
+      security:
+        applies-to: "security-updates"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    labels:
+      - "dependencies"
+      - "github-actions"
