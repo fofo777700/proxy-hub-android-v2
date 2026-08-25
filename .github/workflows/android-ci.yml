@@ -34,10 +34,14 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          api-level: 34
-          ndk-version: r25c
-          build-tools-version: '34.0.0'
-          cmdline-tools-version: '11.0'
+          cmdline-tools-version: 'latest'
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: true
+          packages: |
+            platform-tools
+            platforms;android-34
+            build-tools;34.0.0
+            ndk;25.2.9519653
 
       - name: Grant Gradle permission
         run: chmod +x ./gradlew
@@ -71,10 +75,14 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          api-level: 34
-          ndk-version: r25c
-          build-tools-version: '34.0.0'
-          cmdline-tools-version: '11.0'
+          cmdline-tools-version: 'latest'
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: true
+          packages: |
+            platform-tools
+            platforms;android-34
+            build-tools;34.0.0
+            ndk;25.2.9519653
 
       - name: Grant Gradle permission
         run: chmod +x ./gradlew
@@ -109,10 +117,14 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          api-level: 34
-          ndk-version: r25c
-          build-tools-version: '34.0.0'
-          cmdline-tools-version: '11.0'
+          cmdline-tools-version: 'latest'
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: true
+          packages: |
+            platform-tools
+            platforms;android-34
+            build-tools;34.0.0
+            ndk;25.2.9519653
 
       - name: Grant Gradle permission
         run: chmod +x ./gradlew
@@ -151,10 +163,14 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          api-level: 34
-          ndk-version: r25c
-          build-tools-version: '34.0.0'
-          cmdline-tools-version: '11.0'
+          cmdline-tools-version: 'latest'
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: true
+          packages: |
+            platform-tools
+            platforms;android-34
+            build-tools;34.0.0
+            ndk;25.2.9519653
 
       - name: Grant Gradle permission
         run: chmod +x ./gradlew
