@@ -37,7 +37,11 @@ jobs:
           cmdline-tools-version: 'latest'
           accept-android-sdk-licenses: true
           log-accepted-android-sdk-licenses: true
-          packages: platform-tools;platforms;android-34;build-tools;34.0.0;ndk;25.2.9519653
+          packages: |
+            platform-tools
+            platforms;android-34
+            build-tools;34.0.0
+            ndk;25.2.9519653
 
       - name: Grant Gradle permission
         run: chmod +x ./gradlew
@@ -74,7 +78,11 @@ jobs:
           cmdline-tools-version: 'latest'
           accept-android-sdk-licenses: true
           log-accepted-android-sdk-licenses: true
-          packages: platform-tools;platforms;android-34;build-tools;34.0.0;ndk;25.2.9519653
+          packages: |
+            platform-tools
+            platforms;android-34
+            build-tools;34.0.0
+            ndk;25.2.9519653
 
       - name: Grant Gradle permission
         run: chmod +x ./gradlew
@@ -112,7 +120,11 @@ jobs:
           cmdline-tools-version: 'latest'
           accept-android-sdk-licenses: true
           log-accepted-android-sdk-licenses: true
-          packages: platform-tools;platforms;android-34;build-tools;34.0.0;ndk;25.2.9519653
+          packages: |
+            platform-tools
+            platforms;android-34
+            build-tools;34.0.0
+            ndk;25.2.9519653
 
       - name: Grant Gradle permission
         run: chmod +x ./gradlew
@@ -154,7 +166,11 @@ jobs:
           cmdline-tools-version: 'latest'
           accept-android-sdk-licenses: true
           log-accepted-android-sdk-licenses: true
-          packages: platform-tools;platforms;android-34;build-tools;34.0.0;ndk;25.2.9519653
+          packages: |
+            platform-tools
+            platforms;android-34
+            build-tools;34.0.0
+            ndk;25.2.9519653
 
       - name: Grant Gradle permission
         run: chmod +x ./gradlew
