@@ -51,7 +51,7 @@ fun ProxyScreen(
     val testResults by viewModel.testResults.collectAsStateWithLifecycle()
     val selectedProxy by viewModel.selectedProxy.collectAsStateWithLifecycle()
 
-    androidx.lifecycle.DefaultLifecycleObserver.onStart {
+    androidx.compose.runtime.LaunchedEffect(key1 = Unit) {
         viewModel.loadProxies(countryCode, false)
     }
 

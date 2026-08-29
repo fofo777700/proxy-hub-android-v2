@@ -184,7 +184,7 @@ fun ActionCard(
             }
             Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.ChevronRight, contentDescription = "Navigate")
         }
-    )
+    }
 }
 
 @Composable
