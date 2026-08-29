@@ -46,7 +46,9 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.3"
-        suppressKotlinVersionCompatibilityCheck = true
+    }
+    kotlinOptions {
+        freeCompilerArgs += "-P plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
     }
     packaging {
         resources {
