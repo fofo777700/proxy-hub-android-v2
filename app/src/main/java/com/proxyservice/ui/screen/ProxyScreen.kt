@@ -61,7 +61,7 @@ fun ProxyScreen(
             verticalArrangement = Arrangement.Top
         ) {
             TopAppBar(
-                title = { Text("${countryCode?.uppercase() ?? "All"} Proxies") },
+                title = { Text("${countryCode?.uppercase() ?: "All"} Proxies") },
                 navigationIcon = { IconButton(onClick = onBackClick) { Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.ArrowBack, contentDescription = "Back") } },
                 actions = {
                     IconButton(onClick = { viewModel.refresh(true) }) {
