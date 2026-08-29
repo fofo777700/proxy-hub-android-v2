@@ -48,8 +48,10 @@ android {
         kotlinCompilerExtensionVersion = "1.5.3"
     }
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        kotlinOptions {
-            freeCompilerArgs += "-P plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+        if (!name.contains("ksp")) {
+            kotlinOptions {
+                freeCompilerArgs += "-P plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+            }
         }
     }
     packaging {
