@@ -47,14 +47,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.3"
     }
-    tasks.named("compileDebugKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class).configure {
-        kotlinOptions {
-            freeCompilerArgs += "-P plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
-        }
-    }
-    tasks.named("compileReleaseKotlin", org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class).configure {
-        kotlinOptions {
-            freeCompilerArgs += "-P plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        if (!name.contains("ksp", ignoreCase = true) && name.contains("compile")) {
+            kotlinOptions {
+                freeCompilerArgs += "-P plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+            }
         }
     }
     packaging {
