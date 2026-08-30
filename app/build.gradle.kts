@@ -49,7 +49,7 @@ android {
     }
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         // Only apply to compile tasks, not ksp tasks
-        if (!name.startsWith("ksp") && name.contains("compile")) {
+        if (!name.contains("ksp") && (name == "compileDebugKotlin" || name == "compileReleaseKotlin")) {
             kotlinOptions {
                 freeCompilerArgs += "-P plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
             }
