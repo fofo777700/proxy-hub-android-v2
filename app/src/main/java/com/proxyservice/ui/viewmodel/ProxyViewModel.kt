@@ -60,7 +60,7 @@ class ProxyViewModel(private val repository: ProxyRepository) : ViewModel() {
 
     fun getTestResult(id: Int): TestResult? = _testResults.value[id]
 
-    fun getSubscription(countryCode: String?, format: String): String? {
+    suspend fun getSubscription(countryCode: String?, format: String): String? {
         return repository.getSubscription(countryCode, format)
     }
 

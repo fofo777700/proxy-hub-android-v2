@@ -14,17 +14,12 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemHeadline
-import androidx.compose.material3.ListItemSecondaryText
-import androidx.compose.material3.ListItemTrailing
 import androidx.compose.material3.ProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,6 +33,9 @@ import com.proxyservice.ui.theme.MaterialTheme
 import com.proxyservice.ui.theme.ProxyTheme
 import com.proxyservice.ui.viewmodel.ProxyViewModel
 import kotlinx.coroutines.flow.collectAsStateWithLifecycle
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 
 @Composable
 fun ProxyScreen(
@@ -51,6 +49,8 @@ fun ProxyScreen(
     val testResults by viewModel.testResults.collectAsStateWithLifecycle()
     val selectedProxy by viewModel.selectedProxy.collectAsStateWithLifecycle()
 
+    val context = androidx.compose.ui.platform.LocalContext.current
+    
     androidx.compose.runtime.LaunchedEffect(key1 = Unit) {
         viewModel.loadProxies(countryCode, false)
     }
@@ -96,7 +96,8 @@ fun ProxyScreen(
                             isSelected = selectedProxy?.id == proxy.id,
                             testResult = testResults[proxy.id],
                             onClick = { viewModel.selectProxy(proxy) },
-                            onTestClick = { viewModel.testProxies(listOf(proxy.id)) }
+                            onTestClick = { viewModel.testProxies(listOf(proxy.id)) },
+                            context = context
                         )
                     }
                 }
@@ -111,7 +112,8 @@ fun ProxyItem(
     isSelected: Boolean,
     testResult: TestResult?,
     onClick: () -> Unit,
-    onTestClick: () -> Unit
+    onTestClick: () -> Unit,
+    context: Context
 ) {
     val statusColor = when {
         testResult?.success == true -> Color.Green
@@ -169,7 +171,9 @@ fun ProxyItem(
                     Text("Test")
                 }
                 androidx.compose.material3.IconButton(onClick = {
-                    android.content.ClipboardManager.copyToClipboard(proxy.uri ?: proxy.url)
+                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clip = ClipData.newPlainText("Proxy URI", proxy.uri ?: proxy.url)
+                    clipboard.setPrimaryClip(clip)
                 }) {
                     Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.ContentCopy, contentDescription = "Copy URI")
                 }
