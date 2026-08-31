@@ -1,23 +1,23 @@
 package com.proxyservice.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemHeadline
-import androidx.compose.material3.ListItemSecondaryText
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -86,24 +86,22 @@ fun CountryItem(
     country: CountryInfo,
     onClick: () -> Unit
 ) {
-    ListItem(
+    Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
             .padding(16.dp),
-        headlineContent = {
-            Text(
-                text = "${country.flagEmoji} ${country.name}",
-                style = MaterialTheme.typography.titleLarge
-            )
-        },
-        supportingContent = {
-            Text(
-                text = "${country.count} proxies",
-                style = MaterialTheme.typography.bodyMedium
-            )
-        },
-        trailingContent = {
+        elevation = androidx.compose.material3.CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        androidx.compose.foundation.layout.Row(
+            modifier = Modifier.fillMaxWidth().padding(16.dp).height(56.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = "${country.flagEmoji}", fontSize = 24.sp, modifier = Modifier.padding(end = 12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(text = country.name, style = MaterialTheme.typography.bodyLarge)
+                Text(text = "${country.count} proxies", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
             IconButton(onClick = {}) {
                 Icon(
                     imageVector = androidx.compose.material.icons.defaults.Icons.Default.ChevronRight,
@@ -111,6 +109,6 @@ fun CountryItem(
                 )
             }
         }
-    )
+    }
     Divider()
 }

@@ -14,6 +14,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -29,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.proxyservice.model.ProxyConfig
 import com.proxyservice.model.TestResult
-import com.proxyservice.ui.theme.MaterialTheme
 import com.proxyservice.ui.theme.ProxyTheme
 import com.proxyservice.ui.viewmodel.ProxyViewModel
 import kotlinx.coroutines.flow.collectAsStateWithLifecycle
