@@ -87,13 +87,8 @@ dependencies {
     // Coil for images
     implementation(libs.coil.compose)
 
-    // Room Database (for caching)
-//    implementation(libs.androidx.room.runtime)
-//    implementation(libs.androidx.room.ktx)
-//    ksp(libs.androidx.room.compiler)
-
-// DataStore (for settings)
-//    implementation(libs.androidx.datastore.preferences)
+    // Kotlinx Serialization
+    implementation(libs.kotlinx.serialization.json)
 
     // Testing
     testImplementation(libs.junit)
