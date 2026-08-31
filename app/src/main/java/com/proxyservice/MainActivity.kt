@@ -18,13 +18,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.getString
-import androidx.navigation.compose.rememberNavController
 import com.proxyservice.network.ApiClient
 import com.proxyservice.repository.ProxyRepository
 import com.proxyservice.ui.screen.CountryScreen
@@ -54,36 +49,11 @@ class MainActivity : ComponentActivity() {
                     val countryViewModel = viewModel { CountryViewModel(repository) }
                     val proxyViewModel = viewModel { ProxyViewModel(repository) }
 
-                    val navController = rememberNavController()
-                    NavHost(navController, "main") {
-                        composable("main") {
-                            MainScreen(
-                                viewModel = mainViewModel,
-                                onNavigateToCountries = { navController.navigate("countries") },
-                                onNavigateToSubscription = { navController.navigate("subscription") }
-                            )
-                        }
-                        composable("countries") {
-                            CountryScreen(
-                                viewModel = countryViewModel,
-                                onCountryClick = { code -> navController.navigate("proxies/$code") }
-                            )
-                        }
-                        composable(
-                            route = "proxies/{countryCode}",
-                            arguments = listOf(androidx.navigation.navArgument("countryCode") { type = androidx.navigation.NavType.StringType })
-                        ) { backStackEntry ->
-                            val countryCode = backStackEntry.getString("countryCode")
-                            ProxyScreen(
-                                countryCode = countryCode,
-                                viewModel = proxyViewModel,
-                                onBackClick = { navController.popBackStack() }
-                            )
-                        }
-                        composable("subscription") {
-                            SubscriptionScreen(onBackClick = { navController.popBackStack() })
-                        }
-                    }
+                    MainScreen(
+                        viewModel = mainViewModel,
+                        onNavigateToCountries = { /* TODO: Navigation */ },
+                        onNavigateToSubscription = { /* TODO: Navigation */ }
+                    )
                 }
             }
         }

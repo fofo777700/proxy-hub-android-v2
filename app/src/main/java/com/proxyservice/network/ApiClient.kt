@@ -8,9 +8,11 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
+import okhttp3.MediaType
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -46,17 +48,18 @@ interface ProxyApiService {
 
     @POST("/api/test")
     suspend fun testProxies(
-        @kotlinx.serialization.json.Json body: String
+        @Body body: String
     ): Response<List<TestResult>>
 }
 
 class ApiClient(private val baseUrl: String, private val dispatcher: CoroutineDispatcher) {
 
+    private val json = Json { ignoreUnknownKeys = true }
+    private val mediaType = MediaType.parse("application/json")
+
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
-        .addConverterFactory(
-            kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.asConverterFactory("application/json".toMediaType())
-        )
+        .addConverterFactory(json.asConverterFactory(mediaType))
         .build()
 
     private val service: ProxyApiService = retrofit.create(ProxyApiService::class.java)
@@ -118,7 +121,6 @@ class ApiClient(private val baseUrl: String, private val dispatcher: CoroutineDi
 
     suspend fun testProxies(proxyIds: List<Int>): Result<List<TestResult>> = withContext(dispatcher) {
         try {
-            val json = Json { ignoreUnknownKeys = true }
             val body = json.encodeToString(proxyIds.map { id ->
                 jsonObject { put("id", id) }
             })
