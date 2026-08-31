@@ -46,14 +46,6 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.4"
     }
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        // Only apply to compile tasks
-        if (name == "compileDebugKotlin" || name == "compileReleaseKotlin") {
-            kotlinOptions {
-                freeCompilerArgs += "-P plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
-            }
-        }
-    }
     packaging {
         resources {
             excludes += listOf("META-INF/*.kotlin_module")
