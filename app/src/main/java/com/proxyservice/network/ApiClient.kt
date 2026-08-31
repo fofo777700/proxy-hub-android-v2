@@ -55,7 +55,7 @@ interface ProxyApiService {
 class ApiClient(private val baseUrl: String, private val dispatcher: CoroutineDispatcher) {
 
     private val json = Json { ignoreUnknownKeys = true }
-    private val mediaType = MediaType.parse("application/json")
+    private val mediaType = "application/json".toMediaType()
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
@@ -64,23 +64,23 @@ class ApiClient(private val baseUrl: String, private val dispatcher: CoroutineDi
 
     private val service: ProxyApiService = retrofit.create(ProxyApiService::class.java)
 
-    suspend fun getStats(): Result<StatsResponse> = withContext(dispatcher) {
+    suspend fun getStats(): ApiClient.Result<StatsResponse> = withContext(dispatcher) {
         try {
             val response = service.getStats()
-            if (response.isSuccessful) Result.success(response.body()!!)
-            else Result.failure(Exception("HTTP ${response.code()}"))
+            if (response.isSuccessful) ApiClient.Result.Success(response.body()!!)
+            else ApiClient.Result.Failure(Exception("HTTP ${response.code()}"))
         } catch (e: Exception) {
-            Result.failure(e)
+            ApiClient.Result.Failure(e)
         }
     }
 
-    suspend fun getCountries(): Result<List<CountryInfo>> = withContext(dispatcher) {
+    suspend fun getCountries(): ApiClient.Result<List<CountryInfo>> = withContext(dispatcher) {
         try {
             val response = service.getCountries()
-            if (response.isSuccessful) Result.success(response.body()!!)
-            else Result.failure(Exception("HTTP ${response.code()}"))
+            if (response.isSuccessful) ApiClient.Result.Success(response.body()!!)
+            else ApiClient.Result.Failure(Exception("HTTP ${response.code()}"))
         } catch (e: Exception) {
-            Result.failure(e)
+            ApiClient.Result.Failure(e)
         }
     }
 
@@ -89,46 +89,46 @@ class ApiClient(private val baseUrl: String, private val dispatcher: CoroutineDi
         protocol: String? = null,
         limit: Int = 50,
         test: Boolean = false
-    ): Result<List<ProxyConfig>> = withContext(dispatcher) {
+    ): ApiClient.Result<List<ProxyConfig>> = withContext(dispatcher) {
         try {
             val response = service.getProxies(country, protocol, limit, 0, test)
-            if (response.isSuccessful) Result.success(response.body()!!)
-            else Result.failure(Exception("HTTP ${response.code()}"))
+            if (response.isSuccessful) ApiClient.Result.Success(response.body()!!)
+            else ApiClient.Result.Failure(Exception("HTTP ${response.code()}"))
         } catch (e: Exception) {
-            Result.failure(e)
+            ApiClient.Result.Failure(e)
         }
     }
 
-    suspend fun getProxy(id: Int, test: Boolean = false): Result<ProxyConfig> = withContext(dispatcher) {
+    suspend fun getProxy(id: Int, test: Boolean = false): ApiClient.Result<ProxyConfig> = withContext(dispatcher) {
         try {
             val response = service.getProxy(id, test)
-            if (response.isSuccessful) Result.success(response.body()!!)
-            else Result.failure(Exception("HTTP ${response.code()}"))
+            if (response.isSuccessful) ApiClient.Result.Success(response.body()!!)
+            else ApiClient.Result.Failure(Exception("HTTP ${response.code()}"))
         } catch (e: Exception) {
-            Result.failure(e)
+            ApiClient.Result.Failure(e)
         }
     }
 
-    suspend fun getSubscription(country: String? = null, format: String = "json"): Result<String> = withContext(dispatcher) {
+    suspend fun getSubscription(country: String? = null, format: String = "json"): ApiClient.Result<String> = withContext(dispatcher) {
         try {
             val response = service.getSubscription(country, format)
-            if (response.isSuccessful) Result.success(response.body()!!)
-            else Result.failure(Exception("HTTP ${response.code()}"))
+            if (response.isSuccessful) ApiClient.Result.Success(response.body()!!)
+            else ApiClient.Result.Failure(Exception("HTTP ${response.code()}"))
         } catch (e: Exception) {
-            Result.failure(e)
+            ApiClient.Result.Failure(e)
         }
     }
 
-    suspend fun testProxies(proxyIds: List<Int>): Result<List<TestResult>> = withContext(dispatcher) {
+    suspend fun testProxies(proxyIds: List<Int>): ApiClient.Result<List<TestResult>> = withContext(dispatcher) {
         try {
             val body = json.encodeToString(proxyIds.map { id ->
                 jsonObject { put("id", id) }
             })
             val response = service.testProxies(body)
-            if (response.isSuccessful) Result.success(response.body()!!)
-            else Result.failure(Exception("HTTP ${response.code()}"))
+            if (response.isSuccessful) ApiClient.Result.Success(response.body()!!)
+            else ApiClient.Result.Failure(Exception("HTTP ${response.code()}"))
         } catch (e: Exception) {
-            Result.failure(e)
+            ApiClient.Result.Failure(e)
         }
     }
 
