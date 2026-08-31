@@ -47,8 +47,8 @@ android {
         kotlinCompilerExtensionVersion = "1.5.3"
     }
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        // Only apply to compile tasks, not ksp tasks
-        if (!name.contains("ksp") && (name == "compileDebugKotlin" || name == "compileReleaseKotlin")) {
+        // Only apply to compile tasks
+        if (name == "compileDebugKotlin" || name == "compileReleaseKotlin") {
             kotlinOptions {
                 freeCompilerArgs += "-P plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
             }
@@ -96,12 +96,12 @@ dependencies {
     implementation(libs.coil.compose)
 
     // Room Database (for caching)
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
+//    implementation(libs.androidx.room.runtime)
+//    implementation(libs.androidx.room.ktx)
+//    ksp(libs.androidx.room.compiler)
 
-    // DataStore (for settings)
-    implementation(libs.androidx.datastore.preferences)
+// DataStore (for settings)
+//    implementation(libs.androidx.datastore.preferences)
 
     // Testing
     testImplementation(libs.junit)
