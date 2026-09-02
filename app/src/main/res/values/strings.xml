@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">پروکسی هاب</string>
+    <string name="countries_title">کشورها</string>
+    <string name="total_proxies">مجموع پروکسی‌ها</string>
+    <string name="total_countries">مجموع کشورهای</string>
+    <string name="quick_actions">عملیات سریع</string>
+    <string name="browse_countries">مرور کشورها</string>
+    <string name="browse_countries_desc">مشاهده و انتخاب کشور</string>
+    <string name="download_subscription">دانلود اشتراک</string>
+    <string name="download_subscription_desc">دریافت کانفیگ‌های پروکسی</string>
+    <string name="top_countries">برترین کشورها</string>
+</resources>
