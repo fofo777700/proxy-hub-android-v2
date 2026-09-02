@@ -76,7 +76,7 @@ dependencies {
 
     // Retrofit & Networking
     implementation(libs.retrofit)
-    implementation(libs.converter.moshi)
+    implementation(libs.converter.kotlinx.serialization)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
@@ -89,6 +89,10 @@ dependencies {
 
     // Kotlinx Serialization
     implementation(libs.kotlinx.serialization.json)
+
+    // Material Icons
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
 
     // Testing
     testImplementation(libs.junit)

@@ -21,6 +21,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Speed
+import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -65,13 +69,13 @@ fun ProxyScreen(
         ) {
             TopAppBar(
                 title = { Text("${countryCode?.uppercase() ?: "All"} Proxies") },
-                navigationIcon = { IconButton(onClick = onBackClick) { Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.ArrowBack, contentDescription = "Back") } },
+                navigationIcon = { IconButton(onClick = onBackClick) { Icon(imageVector = ArrowBack, contentDescription = "Back") } },
                 actions = {
                     IconButton(onClick = { viewModel.refresh(true) }) {
-                        Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.Refresh, contentDescription = "Refresh & Test")
+                        Icon(imageVector = Refresh, contentDescription = "Refresh & Test")
                     }
                     IconButton(onClick = { viewModel.testSelectedProxies() }) {
-                        Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.Speed, contentDescription = "Test Selected")
+                        Icon(imageVector = Speed, contentDescription = "Test Selected")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
@@ -178,7 +182,7 @@ fun ProxyItem(
                     val clip = ClipData.newPlainText("Proxy URI", proxy.uri ?: proxy.url)
                     clipboard.setPrimaryClip(clip)
                 }) {
-                    Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.ContentCopy, contentDescription = "Copy URI")
+                    Icon(imageVector = ContentCopy, contentDescription = "Copy URI")
                 }
             }
         }

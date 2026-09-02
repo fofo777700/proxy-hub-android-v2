@@ -56,11 +56,11 @@ interface ProxyApiService {
 class ApiClient(private val baseUrl: String, private val dispatcher: CoroutineDispatcher) {
 
     private val json = Json { ignoreUnknownKeys = true }
-    private val mediaType = "application/json".toMediaType()
+    private val mediaType = "application/json".toMediaTypeOrNull()
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
-        .addConverterFactory(json.asConverterFactory(mediaType))
+        .addConverterFactory(json.asConverterFactory(mediaType!!))
         .build()
 
     private val service: ProxyApiService = retrofit.create(ProxyApiService::class.java)
@@ -123,10 +123,10 @@ class ApiClient(private val baseUrl: String, private val dispatcher: CoroutineDi
     suspend fun testProxies(proxyIds: List<Int>): ApiClient.Result<List<TestResult>> = withContext(dispatcher) {
         try {
             val jsonObject = JsonObject()
-            proxyIds.forEachIndexed { index, id ->
+            proxyIds.forEach { id ->
                 jsonObject.put("id", id.toString())
             }
-            val body = RequestBody.create(mediaType, json.toString(jsonObject))
+            val body = RequestBody.create(mediaType!!, json.toString(jsonObject))
             val response = service.testProxies(body)
             if (response.isSuccessful) ApiClient.Result.Success(response.body()!!)
             else ApiClient.Result.Failure(Exception("HTTP ${response.code()}"))

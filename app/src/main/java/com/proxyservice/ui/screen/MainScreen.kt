@@ -21,6 +21,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material.icons.filled.Public
+import androidx.compose.material.icons.filled.Download
+import androidx.compose.material.icons.filled.Router
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,10 +59,10 @@ fun MainScreen(
                 title = { Text(stringResource(R.string.app_name)) },
                 actions = {
                     IconButton(onClick = onNavigateToCountries) {
-                        Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.Public, contentDescription = "Countries")
+                        Icon(imageVector = Public, contentDescription = "Countries")
                     }
                     IconButton(onClick = onNavigateToSubscription) {
-                        Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.Download, contentDescription = "Subscription")
+                        Icon(imageVector = Download, contentDescription = "Subscription")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
@@ -88,13 +92,13 @@ fun MainScreen(
                             StatCard(
                                 title = stringResource(R.string.total_proxies),
                                 value = "${s.total_proxies}",
-                                icon = androidx.compose.material.icons.defaults.Icons.Default.Router,
+                                icon = Router,
                                 color = MaterialTheme.colorScheme.primary
                             )
                             StatCard(
                                 title = stringResource(R.string.total_countries),
                                 value = "${s.total_countries}",
-                                icon = androidx.compose.material.icons.defaults.Icons.Default.Public,
+                                icon = Public,
                                 color = MaterialTheme.colorScheme.secondary
                             )
                         }
@@ -108,14 +112,14 @@ fun MainScreen(
                     ActionCard(
                         title = stringResource(R.string.browse_countries),
                         description = stringResource(R.string.browse_countries_desc),
-                        icon = androidx.compose.material.icons.defaults.Icons.Default.Public,
+                        icon = Public,
                         onClick = onNavigateToCountries
                     )
 
                     ActionCard(
                         title = stringResource(R.string.download_subscription),
                         description = stringResource(R.string.download_subscription_desc),
-                        icon = androidx.compose.material.icons.defaults.Icons.Default.Download,
+                        icon = Download,
                         onClick = onNavigateToSubscription
                     )
 
@@ -206,6 +210,6 @@ fun CountryRow(country: com.proxyservice.model.CountryInfo) {
             Text(text = country.name, style = MaterialTheme.typography.bodyLarge)
             Text(text = "${country.count} proxies", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-        Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.ChevronRight, contentDescription = "")
+        Icon(imageVector = ChevronRight, contentDescription = "")
     }
 }
