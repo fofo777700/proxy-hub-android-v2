@@ -7,8 +7,9 @@ import com.proxyservice.model.TestResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.JsonObject
 import okhttp3.MediaType
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -48,7 +49,7 @@ interface ProxyApiService {
 
     @POST("/api/test")
     suspend fun testProxies(
-        @Body body: String
+        @Body body: RequestBody
     ): Response<List<TestResult>>
 }
 
@@ -121,9 +122,11 @@ class ApiClient(private val baseUrl: String, private val dispatcher: CoroutineDi
 
     suspend fun testProxies(proxyIds: List<Int>): ApiClient.Result<List<TestResult>> = withContext(dispatcher) {
         try {
-            val body = json.encodeToString(proxyIds.map { id ->
-                jsonObject { put("id", id) }
-            })
+            val jsonObject = JsonObject()
+            proxyIds.forEachIndexed { index, id ->
+                jsonObject.put("id", id.toString())
+            }
+            val body = RequestBody.create(mediaType, json.toString(jsonObject))
             val response = service.testProxies(body)
             if (response.isSuccessful) ApiClient.Result.Success(response.body()!!)
             else ApiClient.Result.Failure(Exception("HTTP ${response.code()}"))

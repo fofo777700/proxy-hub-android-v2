@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -68,7 +69,8 @@ fun SubscriptionScreen(onBackClick: () -> Unit) {
     ) {
         TopAppBar(
             title = { Text("Subscription") },
-            navigationIcon = { IconButton(onClick = onBackClick) { Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.ArrowBack, contentDescription = "Back") } }
+            navigationIcon = { IconButton(onClick = onBackClick) { Icon(imageVector = androidx.compose.material.icons.defaults.Icons.Default.ArrowBack, contentDescription = "Back") } },
+            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
         )
         Text(text = "Subscription Screen - Coming Soon", modifier = Modifier.fillMaxSize().padding(16.dp))
     }
