@@ -22,5 +22,8 @@
         <item name="colorOnError">@color/on_error</item>
         <item name="colorOutline">@color/outline</item>
         <item name="colorOutlineVariant">@color/outline_variant</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:colorBackgroundFloating">@color/surface</item>
+        <item name="android:windowBackground">@color/background</item>
     </style>
 </resources>
