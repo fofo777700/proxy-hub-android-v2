@@ -8,7 +8,6 @@
         <item name="colorTertiaryContainer">@color/tertiary_container</item>
         <item name="colorSurface">@color/surface</item>
         <item name="colorSurfaceVariant">@color/surface_variant</item>
-        <item name="colorBackground">@color/background</item>
         <item name="colorError">@color/error</item>
         <item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
@@ -18,12 +17,9 @@
         <item name="colorOnTertiaryContainer">@color/on_tertiary_container</item>
         <item name="colorOnSurface">@color/on_surface</item>
         <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
-        <item name="colorOnBackground">@color/on_background</item>
         <item name="colorOnError">@color/on_error</item>
         <item name="colorOutline">@color/outline</item>
         <item name="colorOutlineVariant">@color/outline_variant</item>
-        <item name="android:colorBackground">@color/background</item>
-        <item name="android:colorBackgroundFloating">@color/surface</item>
         <item name="android:windowBackground">@color/background</item>
     </style>
 </resources>
