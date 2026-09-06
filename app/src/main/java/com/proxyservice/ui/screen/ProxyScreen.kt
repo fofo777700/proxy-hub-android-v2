@@ -46,6 +46,7 @@ import android.content.Context
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,8 +61,8 @@ fun ProxyScreen(
     val testResults: Map<Int, TestResult> by viewModel.testResults.collectAsStateWithLifecycle()
     val selectedProxy: ProxyConfig? by viewModel.selectedProxy.collectAsStateWithLifecycle()
 
-    val context = androidx.compose.ui.platform.LocalContext.current
-    
+    val context = LocalContext.current
+
     androidx.compose.runtime.LaunchedEffect(key1 = Unit) {
         viewModel.loadProxies(countryCode, false)
     }
@@ -73,10 +74,10 @@ fun ProxyScreen(
         ) {
             TopAppBar(
                 title = { Text("${countryCode?.uppercase() ?: "All"} Proxies") },
-                navigationIcon = { 
-                    IconButton(onClick = onBackClick) { 
-                        Icon(imageVector = ArrowBack, contentDescription = "Back") 
-                    } 
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+                        Icon(imageVector = ArrowBack, contentDescription = "Back")
+                    }
                 },
                 actions = {
                     IconButton(onClick = { viewModel.refresh(true) }) {
