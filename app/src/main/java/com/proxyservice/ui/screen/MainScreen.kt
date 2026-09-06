@@ -24,9 +24,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material.icons.filled.Public
-import androidx.compose.material.icons.filled.Download
-import androidx.compose.material.icons.filled.Router
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.FileDownload
+import androidx.compose.material.icons.filled.Wifi
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.OptIn
@@ -69,10 +69,10 @@ fun MainScreen(
                 title = { Text(stringResource(R.string.app_name)) },
                 actions = {
                     IconButton(onClick = onNavigateToCountries) {
-                        Icon(imageVector = Public, contentDescription = "Countries")
+                        Icon(imageVector = Person, contentDescription = "Countries")
                     }
                     IconButton(onClick = onNavigateToSubscription) {
-                        Icon(imageVector = Download, contentDescription = "Subscription")
+                        Icon(imageVector = FileDownload, contentDescription = "Subscription")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
@@ -103,14 +103,14 @@ fun MainScreen(
                                 modifier = Modifier.weight(1f),
                                 title = stringResource(R.string.total_proxies),
                                 value = "${s.total_proxies}",
-                                icon = Router,
+                                icon = Wifi,
                                 color = MaterialTheme.colorScheme.primary
                             )
                             StatCard(
                                 modifier = Modifier.weight(1f),
                                 title = stringResource(R.string.total_countries),
                                 value = "${s.total_countries}",
-                                icon = Public,
+                                icon = Person,
                                 color = MaterialTheme.colorScheme.secondary
                             )
                         }
@@ -124,14 +124,14 @@ fun MainScreen(
                     ActionCard(
                         title = stringResource(R.string.browse_countries),
                         description = stringResource(R.string.browse_countries_desc),
-                        icon = Public,
+                        icon = Person,
                         onClick = onNavigateToCountries
                     )
 
                     ActionCard(
                         title = stringResource(R.string.download_subscription),
                         description = stringResource(R.string.download_subscription_desc),
-                        icon = Download,
+                        icon = FileDownload,
                         onClick = onNavigateToSubscription
                     )
 
