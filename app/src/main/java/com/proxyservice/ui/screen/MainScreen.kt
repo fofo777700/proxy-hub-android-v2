@@ -97,12 +97,14 @@ fun MainScreen(
                             horizontalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
                             StatCard(
+                                modifier = Modifier.weight(1f),
                                 title = stringResource(R.string.total_proxies),
                                 value = "${s.total_proxies}",
                                 icon = Router,
                                 color = MaterialTheme.colorScheme.primary
                             )
                             StatCard(
+                                modifier = Modifier.weight(1f),
                                 title = stringResource(R.string.total_countries),
                                 value = "${s.total_countries}",
                                 icon = Public,
@@ -154,15 +156,15 @@ fun MainScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StatCard(
+    modifier: Modifier = Modifier,
     title: String,
     value: String,
     icon: ImageVector,
     color: Color
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .weight(1f)
             .height(100.dp)
             .padding(horizontal = 8.dp),
         colors = CardDefaults.cardColors(containerColor = color.copy(alpha = 0.1f))
