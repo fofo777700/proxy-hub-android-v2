@@ -31,7 +31,6 @@ private val DarkColorScheme = darkColorScheme(
     outline = Color(0xFF666666),
     outlineVariant = Color(0xFF444444),
     scrim = Color(0xFF000000),
-    shadow = Color(0xFF000000),
     inverseSurface = Color(0xFFE0E0E0),
     inverseOnSurface = Color(0xFF121212),
     inversePrimary = Color(0xFF1976D2)
@@ -62,7 +61,6 @@ private val LightColorScheme = lightColorScheme(
     outline = Color(0xFF888888),
     outlineVariant = Color(0xFFCCCCCC),
     scrim = Color(0xFF000000),
-    shadow = Color(0xFF000000),
     inverseSurface = Color(0xFF121212),
     inverseOnSurface = Color(0xFFFFFFFF),
     inversePrimary = Color(0xFF64B5F6)
@@ -76,7 +74,7 @@ fun ProxyTheme(
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = androidx.compose.material3.Typography,
+        typography = MaterialTheme.typography,
         content = content
     )
 }

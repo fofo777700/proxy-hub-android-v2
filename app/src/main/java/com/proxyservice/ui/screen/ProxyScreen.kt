@@ -23,7 +23,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Speed
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -75,7 +75,7 @@ fun ProxyScreen(
                         Icon(imageVector = Refresh, contentDescription = "Refresh & Test")
                     }
                     IconButton(onClick = { viewModel.testSelectedProxies() }) {
-                        Icon(imageVector = Speed, contentDescription = "Test Selected")
+                        Icon(imageVector = PlayArrow, contentDescription = "Test Selected")
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
@@ -144,7 +144,7 @@ fun ProxyItem(
         )
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            androidx.compose.foundation.layout.Row(
+            Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
