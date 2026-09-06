@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.layout.clickable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -171,7 +171,7 @@ fun StatCard(
             verticalArrangement = Arrangement.Center
         ) {
             Icon(imageVector = icon, contentDescription = "", tint = color, modifier = Modifier.size(32.dp))
-            Spacer(modifier = Modifier.padding(top = 8.dp))
+            androidx.compose.foundation.layout.Spacer(modifier = Modifier.padding(top = 8.dp))
             Text(text = value, style = MaterialTheme.typography.headlineMedium, color = color, fontWeight = FontWeight.Bold)
             Text(text = title, style = MaterialTheme.typography.bodySmall, color = color.copy(alpha = 0.8f))
         }
