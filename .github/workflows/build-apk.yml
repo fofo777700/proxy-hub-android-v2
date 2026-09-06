@@ -21,6 +21,7 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: 'gradle'
+          cache-key: gradle-${{ github.run_id }}
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
