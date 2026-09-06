@@ -33,7 +33,10 @@ import com.proxyservice.model.CountryInfo
 import com.proxyservice.ui.theme.ProxyTheme
 import com.proxyservice.ui.viewmodel.CountryViewModel
 import kotlinx.coroutines.flow.collectAsStateWithLifecycle
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.OptIn
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CountryScreen(
     viewModel: CountryViewModel = viewModel(),
@@ -78,6 +81,7 @@ fun CountryScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CountryItem(
     country: CountryInfo,

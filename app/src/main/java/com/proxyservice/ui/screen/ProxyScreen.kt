@@ -43,7 +43,11 @@ import kotlinx.coroutines.flow.collectAsStateWithLifecycle
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import androidx.compose.foundation.layout.clickable
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.OptIn
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProxyScreen(
     countryCode: String?,
@@ -69,7 +73,11 @@ fun ProxyScreen(
         ) {
             TopAppBar(
                 title = { Text("${countryCode?.uppercase() ?: "All"} Proxies") },
-                navigationIcon = { IconButton(onClick = onBackClick) { Icon(imageVector = ArrowBack, contentDescription = "Back") } },
+                navigationIcon = { 
+                    IconButton(onClick = onBackClick) { 
+                        Icon(imageVector = ArrowBack, contentDescription = "Back") 
+                    } 
+                },
                 actions = {
                     IconButton(onClick = { viewModel.refresh(true) }) {
                         Icon(imageVector = Refresh, contentDescription = "Refresh & Test")
@@ -98,10 +106,11 @@ fun ProxyScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(proxies) { proxy ->
+                        val testResult: TestResult? = testResults[proxy.id]
                         ProxyItem(
                             proxy = proxy,
                             isSelected = selectedProxy?.id == proxy.id,
-                            testResult = testResults[proxy.id],
+                            testResult = testResult,
                             onClick = { viewModel.selectProxy(proxy) },
                             onTestClick = { viewModel.testProxies(listOf(proxy.id)) },
                             context = context
@@ -113,6 +122,7 @@ fun ProxyScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProxyItem(
     proxy: ProxyConfig,

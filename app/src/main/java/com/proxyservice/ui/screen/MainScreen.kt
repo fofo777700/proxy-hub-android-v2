@@ -39,7 +39,10 @@ import com.proxyservice.R
 import com.proxyservice.ui.theme.ProxyTheme
 import com.proxyservice.ui.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectAsStateWithLifecycle
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.OptIn
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = viewModel(),
@@ -144,6 +147,7 @@ fun MainScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StatCard(
     title: String,
@@ -171,6 +175,7 @@ fun StatCard(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ActionCard(
     title: String,
