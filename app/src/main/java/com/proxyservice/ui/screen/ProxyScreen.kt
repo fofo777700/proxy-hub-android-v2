@@ -52,11 +52,11 @@ fun ProxyScreen(
     viewModel: ProxyViewModel = viewModel(),
     onBackClick: () -> Unit
 ) {
-    val proxies: List<ProxyConfig> by viewModel.proxies.collectAsStateWithLifecycle()
-    val isLoading: Boolean by viewModel.isLoading.collectAsStateWithLifecycle()
-    val error: String? by viewModel.error.collectAsStateWithLifecycle()
-    val testResults: Map<Int, TestResult> by viewModel.testResults.collectAsStateWithLifecycle()
-    val selectedProxy: ProxyConfig? by viewModel.selectedProxy.collectAsStateWithLifecycle()
+    val proxies by viewModel.proxies.collectAsStateWithLifecycle()
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
+    val error by viewModel.error.collectAsStateWithLifecycle()
+    val testResults by viewModel.testResults.collectAsStateWithLifecycle()
+    val selectedProxy by viewModel.selectedProxy.collectAsStateWithLifecycle()
 
     val context = androidx.compose.ui.platform.LocalContext.current
     
