@@ -42,7 +42,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.proxyservice.R
 import com.proxyservice.ui.theme.ProxyTheme
 import com.proxyservice.ui.viewmodel.MainViewModel
-import kotlinx.coroutines.flow.collectAsStateWithLifecycle
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.foundation.layout.Spacer
 
@@ -161,6 +160,7 @@ fun StatCard(
 ) {
     Card(
         modifier = Modifier
+            .fillMaxWidth()
             .weight(1f)
             .height(100.dp)
             .padding(horizontal = 8.dp),
