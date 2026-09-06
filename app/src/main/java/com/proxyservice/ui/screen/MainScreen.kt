@@ -58,6 +58,8 @@ fun MainScreen(
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val error by viewModel.error.collectAsStateWithLifecycle()
 
+    val topCountries: List<CountryInfo>? = stats?.countries?.take(5)
+
     ProxyTheme {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -134,15 +136,15 @@ fun MainScreen(
                     )
 
                     // Top Countries
-                    stats?.countries?.take(5)?.let { topCountries: List<CountryInfo> ->
-                        if (topCountries.isNotEmpty()) {
+                    topCountries?.let { countries ->
+                        if (countries.isNotEmpty()) {
                             Divider()
                             Text(text = stringResource(R.string.top_countries), style = MaterialTheme.typography.titleLarge)
                             LazyColumn(
                                 modifier = Modifier.fillMaxWidth(),
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
-                                items(topCountries) { country: CountryInfo ->
+                                items(countries) { country: CountryInfo ->
                                     CountryRow(country = country)
                                 }
                             }
