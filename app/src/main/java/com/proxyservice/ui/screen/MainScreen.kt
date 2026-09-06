@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.proxyservice.R
+import com.proxyservice.model.CountryInfo
 import com.proxyservice.ui.theme.ProxyTheme
 import com.proxyservice.ui.viewmodel.MainViewModel
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -130,7 +131,7 @@ fun MainScreen(
                     )
 
                     // Top Countries
-                    stats?.countries?.take(5)?.let { topCountries ->
+                    stats?.countries?.take(5)?.let { topCountries: List<CountryInfo> ->
                         if (topCountries.isNotEmpty()) {
                             Divider()
                             Text(text = stringResource(R.string.top_countries), style = MaterialTheme.typography.titleLarge)
@@ -138,7 +139,7 @@ fun MainScreen(
                                 modifier = Modifier.fillMaxWidth(),
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
-                                items(topCountries) { country ->
+                                items(topCountries) { country: CountryInfo ->
                                     CountryRow(country = country)
                                 }
                             }
@@ -209,7 +210,7 @@ fun ActionCard(
 }
 
 @Composable
-fun CountryRow(country: com.proxyservice.model.CountryInfo) {
+fun CountryRow(country: CountryInfo) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(16.dp).height(56.dp),
         verticalAlignment = Alignment.CenterVertically
