@@ -40,7 +40,6 @@ import com.proxyservice.model.ProxyConfig
 import com.proxyservice.model.TestResult
 import com.proxyservice.ui.theme.ProxyTheme
 import com.proxyservice.ui.viewmodel.ProxyViewModel
-import kotlinx.coroutines.flow.collectAsStateWithLifecycle
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
