@@ -44,6 +44,7 @@ import com.proxyservice.ui.theme.ProxyTheme
 import com.proxyservice.ui.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectAsStateWithLifecycle
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.foundation.layout.Spacer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -171,7 +172,7 @@ fun StatCard(
             verticalArrangement = Arrangement.Center
         ) {
             Icon(imageVector = icon, contentDescription = "", tint = color, modifier = Modifier.size(32.dp))
-            androidx.compose.foundation.layout.Spacer(modifier = Modifier.padding(top = 8.dp))
+            Spacer(modifier = Modifier.padding(top = 8.dp))
             Text(text = value, style = MaterialTheme.typography.headlineMedium, color = color, fontWeight = FontWeight.Bold)
             Text(text = title, style = MaterialTheme.typography.bodySmall, color = color.copy(alpha = 0.8f))
         }
